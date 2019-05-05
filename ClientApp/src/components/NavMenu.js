@@ -24,6 +24,11 @@ export default props => (
             <Glyphicon glyph='login' /> Login
           </NavItem>
         </LinkContainer>
+        <LinkContainer to={'/timetracker'}>
+          <NavItem>
+            <Glyphicon glyph='list' /> Time Tracker
+          </NavItem>
+        </LinkContainer>
       </Nav>
     </Navbar.Collapse>
   </Navbar>

@@ -4,7 +4,8 @@ import Layout from './components/Layout';
 import Home from './components/Home';
 import Counter from './components/Counter';
 import FetchData from './components/FetchData';
-import UnimicroLogin from './components/UnimicroLogin'
+import UnimicroLogin from './components/UnimicroLogin';
+import TimeTracker from './components/TimeTracker';
 
 export default () => (
   <Layout>
@@ -12,5 +13,6 @@ export default () => (
     <Route path='/counter' component={Counter} />
     <Route path='/fetchdata/:startDateIndex?' component={FetchData} />
     <Route path='/login' component={UnimicroLogin} />
+    <Route path='/timetracker' component={TimeTracker} />
   </Layout>
 );

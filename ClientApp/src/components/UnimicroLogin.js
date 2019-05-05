@@ -10,37 +10,37 @@ import { actionCreators } from '../store/UnimicroLogin';
 
 class UnimicroLogin extends React.Component {
     constructor() {
-      super();
-      this.handleSubmit = this.handleSubmit.bind(this);
+        super();
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
-  
+
     handleSubmit(event) {
-      event.preventDefault();
-      //const data = new FormData(event.target);
-      const data = new FormData(event.target);
-      const username = data.get('username');
-      const password = data.get('password');
-      
-      this.props.getJwtToken(username, password);
+        event.preventDefault();
+        //const data = new FormData(event.target);
+        const data = new FormData(event.target);
+        const username = data.get('username');
+        const password = data.get('password');
+
+        this.props.getJwtToken(username, password);
     }
-  
+
     render() {
-      return (
-          <div>
-            <form onSubmit={this.handleSubmit}>
-                <label htmlFor="username">Enter username</label>
-                <input id="username" name="username" type="text" />
+        return (
+            <div>
+                <form onSubmit={this.handleSubmit}>
+                    <label htmlFor="username">Enter username</label>
+                    <input id="username" name="username" type="text" />
 
-                <label htmlFor="password">Enter your password</label>
-                <input id="password" name="password" type="password" />
+                    <label htmlFor="password">Enter your password</label>
+                    <input id="password" name="password" type="password" />
 
-                <button>Submit</button>
-            </form>
-            <h1>{this.props.message}</h1>
-        </div>
-      );
+                    <button>Submit</button>
+                </form>
+                <h1>{this.props.message}</h1>
+            </div>
+        );
     }
-  }
+}
 
 export default connect(
     state => state.login,
