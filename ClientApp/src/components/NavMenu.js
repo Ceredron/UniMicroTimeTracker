@@ -14,14 +14,9 @@ export default props => (
     </Navbar.Header>
     <Navbar.Collapse>
       <Nav>
-        <LinkContainer to={'/'} exact>
-          <NavItem>
-            <Glyphicon glyph='home' /> Home
-          </NavItem>
-        </LinkContainer>
         <LinkContainer to={'/login'}>
           <NavItem>
-            <Glyphicon glyph='login' /> Login
+            <Glyphicon glyph='folder-open' /> Login
           </NavItem>
         </LinkContainer>
         <LinkContainer to={'/timetracker'}>

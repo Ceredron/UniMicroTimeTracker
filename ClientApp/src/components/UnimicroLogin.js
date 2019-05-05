@@ -37,6 +37,7 @@ class UnimicroLogin extends React.Component {
                     <button>Submit</button>
                 </form>
                 <h1>{this.props.message}</h1>
+                {this.props.message === ""?"You need to log in":""}
             </div>
         );
     }
