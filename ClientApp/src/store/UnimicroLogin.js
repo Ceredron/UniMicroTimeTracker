@@ -1,5 +1,6 @@
-const getJwtTokenType = 'UPDATE_JWT_TOKEN';
-const initialState = { token: '', message: '' };
+const getJwtTokenType = 'GET_JWT_TOKEN';
+const getCompanies = 'GET_COMPANIES';
+const initialState = { token: '', message: 'You need to log in', companies: [], refreshCompanies: false, chosenCompanyKey: '' };
 
 export const actionCreators = {
     getJwtToken: (username, password) => async dispatch => {
@@ -28,6 +29,21 @@ export const actionCreators = {
 
         dispatch({ type: getJwtTokenType, accessToken, message })
 
+    },
+
+    getCompanies: () => async (dispatch, getState) => {
+        const API_ENDPOINT = 'https://test-api.unieconomy.no/api/init/companies';
+        const token = getState().login.token;
+
+        const response = await fetch(API_ENDPOINT, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        });
+        const companies = await response.json();
+        
+        dispatch({ type: getCompanies, companies})
     }
 };
 
@@ -38,8 +54,17 @@ export const reducer = (state, action) => {
         return {
             ...state,
             token: action.accessToken,
-            message: action.message
+            message: action.message,
+            refreshCompanies: true
         };
+    }
+    if (action.type === getCompanies){
+        return {
+            ...state,
+            refreshCompanies: false,
+            companies: action.companies,
+            chosenCompanyKey: Array.isArray(action.companies)?action.companies[0].Key:[]
+        }
     }
     return state;
 };

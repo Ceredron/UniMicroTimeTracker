@@ -15,6 +15,7 @@ class TimeTracker extends React.Component {
     constructor() {
         super();
     }
+
     componentWillMount() {
         this.props.getWorkItemList();
     }

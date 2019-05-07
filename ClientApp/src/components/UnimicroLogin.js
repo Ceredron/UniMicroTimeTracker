@@ -14,6 +14,12 @@ class UnimicroLogin extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentWillReceiveProps(props){
+        if(props.refreshCompanies){
+            props.getCompanies();
+        }
+    }
+
     handleSubmit(event) {
         event.preventDefault();
         //const data = new FormData(event.target);
@@ -37,7 +43,7 @@ class UnimicroLogin extends React.Component {
                     <button>Submit</button>
                 </form>
                 <h1>{this.props.message}</h1>
-                {this.props.message === ""?"You need to log in":""}
+                <h1>{this.props.chosenCompanyKey === undefined ? '' : 'Using company ' + this.props.chosenCompanyKey}</h1>
             </div>
         );
     }

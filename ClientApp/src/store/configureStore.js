@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import * as UnimicroLogin from './UnimicroLogin';
 import * as TimeTracker from './TimeTracker';
+import * as ContactPersons from './ContactPersons';
 
 export default function configureStore(history, initialState) {
   const reducers = {
     login: UnimicroLogin.reducer,
-    timeTracker: TimeTracker.reducer
+    timeTracker: TimeTracker.reducer,
+    contactPersons: ContactPersons.reducer
   };
 
   const middleware = [
