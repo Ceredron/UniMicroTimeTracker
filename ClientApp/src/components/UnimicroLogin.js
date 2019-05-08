@@ -43,7 +43,7 @@ class UnimicroLogin extends React.Component {
                     <button>Submit</button>
                 </form>
                 <h1>{this.props.message}</h1>
-                <h1>{this.props.chosenCompanyKey === undefined ? '' : 'Using company ' + this.props.chosenCompanyKey}</h1>
+                <h1>{this.props.chosenCompanyKey === '' ? '' : 'Using company ' + this.props.chosenCompanyKey}</h1>
             </div>
         );
     }

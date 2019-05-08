@@ -3,8 +3,9 @@ const getDetailedContactPersonType = 'GET_DETAILED_CONTACT_PERSON';
 const createNewContactPersonType = 'CREATE_NEW_CONTACT_PERSON';
 const deleteContactPersonType = 'DELETE_CONTACT_PERSON';
 const updateContactPersonType = 'UPDATE_CONTACT_PERSON';
+const newContactPersonType = 'NEW_CONTACT_PERSON';
 
-const initialState = { contactPersons: [], refresh: false, detailedContactPerson: {} };
+const initialState = { contactPersons: [], refresh: false, detailedContactPerson: {}, initialized: false, newContactPerson: false };
 
 export const actionCreators = {
 
@@ -26,7 +27,9 @@ export const actionCreators = {
         if (!Array.isArray(contactPersons))
             contactPersons = [];
 
-        dispatch({ type: getContactPersonsType, contactPersons });
+        const successfulCall = response.ok;
+
+        dispatch({ type: getContactPersonsType, contactPersons, successfulCall });
 
     },
 
@@ -62,7 +65,7 @@ export const actionCreators = {
                 'Authorization': 'Bearer ' + token,
                 'CompanyKey': companyKey
             },
-            body: contactPerson
+            body: JSON.stringify(contactPerson)
         });
 
         const responseData = await response.json();
@@ -104,7 +107,8 @@ export const actionCreators = {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token,
                 'CompanyKey': companyKey
-            }
+            },
+            body: JSON.stringify(contactPerson)
         });
 
         const responseData = await response.json();
@@ -112,7 +116,9 @@ export const actionCreators = {
 
         dispatch({ type: updateContactPersonType, });
 
-    }
+    },
+
+    newContactPerson: () => dispatch => dispatch({type: newContactPersonType})
 };
 
 export const reducer = (state, action) => {
@@ -122,7 +128,8 @@ export const reducer = (state, action) => {
         return {
             ...state,
             refresh: false,
-            contactPersons: action.contactPersons
+            contactPersons: action.contactPersons,
+            initialized: action.successfulCall
         };
     }
 
@@ -156,6 +163,16 @@ export const reducer = (state, action) => {
             refresh: true,
 
         };
+    }
+
+    if (action.type === newContactPersonType) {
+        return {
+            ...state,
+            detailedContactPerson: {
+                ID: -1,
+
+            }
+        }
     }
    
     return state;
