@@ -58,6 +58,8 @@ export const actionCreators = {
         const companyKey = getState().login.chosenCompanyKey;
         const API_ENDPOINT = 'https://test-api.unieconomy.no:443/api/biz/contacts/';
 
+        alert(JSON.stringify(contactPerson));
+
         const response = await fetch(API_ENDPOINT, {
             method: 'POST',
             headers: {
@@ -99,9 +101,11 @@ export const actionCreators = {
     updateContactPerson: contactPerson => async (dispatch, getState) => {
         const token = getState().login.token;
         const companyKey = getState().login.chosenCompanyKey;
-        const API_ENDPOINT = 'https://test-api.unieconomy.no:443/api/biz/contacts/' + contactPerson.ID;
+        const API_ENDPOINT = 'https://test-api.unieconomy.no:443/api/biz/contacts/';
 
-        const response = await fetch(API_ENDPOINT, {
+        alert(
+            JSON.stringify(contactPerson));
+        const response = await fetch(API_ENDPOINT + contactPerson.ID, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

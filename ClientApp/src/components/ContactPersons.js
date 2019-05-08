@@ -25,10 +25,12 @@ class ContactPersons extends React.Component {
         if (this.state.newContactPerson === false && props.detailedContactPerson.ID != undefined)
             this.setState({
                 ID: props.detailedContactPerson.ID,
-                name: props.detailedContactPerson.Info.Name,
+                name: props.detailedContactPerson.Info != null?props.detailedContactPerson.Info.Name:'',
                 role: props.detailedContactPerson.Role, 
-                companyName: props.detailedContactPerson.ParentBusinessRelation.Name,
-                companyAddress: props.detailedContactPerson.ParentBusinessRelation.Addresses[0] != undefined ? props.detailedContactPerson.ParentBusinessRelation.Addresses[0].AddressLine1 : ''
+                companyName: props.detailedContactPerson.ParentBusinessRelation != null ? props.detailedContactPerson.ParentBusinessRelation.Name :'',
+                companyAddress: props.detailedContactPerson.ParentBusinessRelation != null ?
+                    props.detailedContactPerson.ParentBusinessRelation.Addresses[0] != undefined ? props.detailedContactPerson.ParentBusinessRelation.Addresses[0].AddressLine1 : ''
+                    :''
             });
     }
 
@@ -63,23 +65,25 @@ class ContactPersons extends React.Component {
         const contactPerson = {
             ID: this.state.ID,
             Role: this.state.role,
+            Info: {
+                Name: this.state.name
+            },
             ParentBusinessRelation: {
                 Name: this.state.companyName,
                 Addresses: [{ AddressLine1: this.state.companyAddress }]
             },
-            Info: {
-                Name: this.state.Name
-            }
         }
 
-        if (this.state.newContactPerson)
+        if (this.state.newContactPerson) {
+            delete contactPerson.ID;
             this.props.createNewContactPerson(contactPerson);
+        }
         else
             this.props.updateContactPerson(contactPerson)
     }
 
     deleteContactPerson() {
-        this.props.deleteContactPerson(this.state.contactPersonID);
+        this.props.deleteContactPerson(this.state.ID);
     }
 
     render() {
